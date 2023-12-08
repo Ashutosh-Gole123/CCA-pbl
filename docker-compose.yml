@@ -1,0 +1,26 @@
+version: '3'
+services:
+  backend:
+    image: proj_backend:1.0.0
+    build:
+      context: ./backend/venv
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    networks:
+      - shared-network
+  
+  frontend:
+    image: proj_frontend:1.0.0
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    networks:
+      - shared-network
+
+networks:
+  shared-network:
